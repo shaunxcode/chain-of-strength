@@ -19,7 +19,8 @@
         "web": "http://order-of-no.posterous.com"
     }], 
 
-    "main": "./chain-of-strength"
+    "main": "./chain-of-strength", 
+
     "licenses": [{
         "type": "MIT",
         "url": "http://www.opensource.org/licenses/mit-license.php"
