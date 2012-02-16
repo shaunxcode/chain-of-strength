@@ -24,5 +24,20 @@ assert "pass a single array",
 assert "no args",
 	["xabra", a: [], b:[1,2]],
 	"xabra.a().b(1,2)"
+	
+assert "functions",
+	["peter", map: func: ["a", b: [1, 2]]],
+	"peter.map(function(){return a.b(1,2)})"
+
+selector = ".div-a"
+x = 3
+y = "apple"
+
+assert "func wrapper", 
+	[$: [selector, "parent"], addClass: "#div-2#{x}-#{y}", twice: 3, 'length', joinBy: "apple"], 
+	"$(\"#{selector}\",\"parent\").addClass(\"#div-23-apple\").twice(3).length.joinBy(\"apple\")"
+
+if (COS.func $: "a", with: "b", and: "c", "length", cat: "Fish") isnt 'function(){$("a").with("b").and("c").length.cat("Fish")}'
+	failures = true;
 
 console.log if failures then "Not all tests passed. See above" else "All passed!"
