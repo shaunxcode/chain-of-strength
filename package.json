@@ -29,6 +29,6 @@
     "repositories": [{
         "type": "git",
         "url": "http://www.github.com/shaunxcode/chain-of-strength"
-    }],
+    }]
 }
 
