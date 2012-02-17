@@ -14,7 +14,7 @@ Type =
 buildArgList = (args) ->
 	argList = []
 	if not Type.is args, "Array" then args = [args]
-	argList.push(if (Type.is(arg, "Object") and arg.func?) then "function(){return #{exports.buildChain arg.func}}" else JSON.stringify arg) for arg in args
+	argList.push(if (Type.is(arg, "Object") and arg.func?) then exports.func(arg.func) else JSON.stringify arg) for arg in args
 	argList.join()
 		
 exports.buildChain = (cmd) ->
@@ -47,4 +47,4 @@ exports.func = (args...) ->
 	#this is to allow for calling as [a, b, c] and a, b, c
 	if args.length is 1 and Type.is(args[0], "Array") then args = args[0]
 	
-	"function(){#{exports.buildChain args}}"
+	"function(){return #{exports.buildChain args}}"

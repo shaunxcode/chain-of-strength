@@ -1,13 +1,16 @@
 COS = require "./chain-of-strength"
 
 failures = false
-assert = (desc, input, expected) ->
-	if (got = COS.buildChain input) isnt expected
-		console.log "Failed #{desc}: expected:"
+equals = (desc, input, expected) ->
+	if input isnt expected
+		failures = true
+		console.log "\nFailed #{desc}:\nExpected:"
 		console.log expected
 		console.log "Got:"
-		console.log got
-		failures = true
+		console.log input
+		
+assert = (desc, input, expected) ->
+	equals desc, COS.buildChain(input), expected
 
 assert "simple selector", 
 	["selector", a: 1, b: 2, "length"],
@@ -37,10 +40,12 @@ assert "func wrapper",
 	[$: [selector, "parent"], addClass: "#div-2#{x}-#{y}", twice: 3, 'length', joinBy: "apple"], 
 	"$(\"#{selector}\",\"parent\").addClass(\"#div-23-apple\").twice(3).length.joinBy(\"apple\")"
 
-if (COS.func $: "a", with: "b", and: "c", "length", cat: "Fish") isnt 'function(){$("a").with("b").and("c").length.cat("Fish")}'
-	failures = true;
+equals "basic COS func",
+	COS.func $: "a", with: "b", and: "c", "length", cat: "Fish"
+	'function(){return $("a").with("b").and("c").length.cat("Fish")}'
 
-if (COS.func [{$: ".certificatesTable"}, map: func: ["$(this)", css: "display"]]) isnt 'function(){$(".certificatesTable").map(function(){return $(this).css("display")})}'
-	failures = true
+equals "COS func with array arg",
+	COS.func [{$: ".certificatesTable"}, map: func: ["$(this)", css: "display"]]
+	'function(){return $(".certificatesTable").map(function(){return $(this).css("display")})}'
 
 console.log if failures then "Not all tests passed. See above" else "All passed!"
