@@ -44,4 +44,7 @@ exports.buildChain = (cmd) ->
 	chain
 
 exports.func = (args...) ->
+	#this is to allow for calling as [a, b, c] and a, b, c
+	if args.length is 1 and Type.is(args[0], "Array") then args = args[0]
+	
 	"function(){#{exports.buildChain args}}"

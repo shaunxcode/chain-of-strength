@@ -40,4 +40,7 @@ assert "func wrapper",
 if (COS.func $: "a", with: "b", and: "c", "length", cat: "Fish") isnt 'function(){$("a").with("b").and("c").length.cat("Fish")}'
 	failures = true;
 
+if (COS.func [{$: ".certificatesTable"}, map: func: ["$(this)", css: "display"]]) isnt 'function(){$(".certificatesTable").map(function(){return $(this).css("display")})}'
+	failures = true
+
 console.log if failures then "Not all tests passed. See above" else "All passed!"
