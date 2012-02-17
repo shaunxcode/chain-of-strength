@@ -6,9 +6,7 @@ Consider (assuming you have a phantom js page object):
 
 ```coffeescript
 x = 6
-
 y = 7
-
 selector = ".div"
 
 page.evaluate -> $(selector).addClass("#div-#{x}-#{y}")
